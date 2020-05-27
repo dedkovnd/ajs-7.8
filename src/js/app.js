@@ -10,6 +10,9 @@ export class Team {
     this.members = new Set();
   }
   addChar(char) {
+    if (this.members.has(char) === true) {
+        throw new Error("you take this character")
+    }
     this.members.add(char)
   }
   addAllChar(...chars) {
@@ -33,9 +36,10 @@ export class ErrorRepository extends Error{
       [98,"not a number from to ten"],
       [99,"number less than a hundred"]
     ])
-    console.log(myErrors.get(code))
     if (myErrors.get(code) === undefined) {
-      throw new Error ("Unknown error")
+      return "unknow error"
+    } else {
+      return myErrors.get(code)
     }
   }
 }

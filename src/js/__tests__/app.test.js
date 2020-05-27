@@ -63,7 +63,7 @@ test('error "not to string"', () => {
   try {
     numTestOne;
     if (typeof numTestOne !== "string") {
-      throw new ErrorRepository (code = 97)
+      throw new ErrorRepository (this.code = 97)
     }
   } catch (err) {
     err.translate(code);
