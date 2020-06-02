@@ -1,7 +1,6 @@
 import {Team, ErrorRepository} from "../app.js";
 import sum from "../basic";
 
-// import sum from "../basic";
 
 test('don t double character ', () => {
   class Character {
@@ -48,25 +47,42 @@ let bowman = new Bowman();
 let swordsman = new Swordsman();
 let daemon = new Daemon();
 let zombie = new Zombie();
-
-team.addChar(bowman)
+let newTeam = new Set([bowman,swordsman,daemon,zombie])
   team.addAllChar(bowman,swordsman,bowman,bowman,daemon)
-  team.addChar(zombie)
-  team.addChar(zombie)
 
+expect(()=>{
+  team.addChar(zombie), team.addChar(zombie)
+  }
+).toThrowError("you take this character")
+expect(team.members).toEqual(newTeam)
 });
 
 /////////
 
-test('error "not to string"', () => {
-  let numTestOne = 22;
+test('error "not to string or number or less hundred"', () => {
   try {
-    numTestOne;
+    let numTestOne = 22;
     if (typeof numTestOne !== "string") {
-      throw new ErrorRepository (this.code = 97)
+        throw new ErrorRepository ()
+      }
+    } catch (err) {
+      expect(err.translate(97)).toBe("not a string")
+    }
+  try {
+    let stringTestOne = "some string";
+    if (typeof stringTestOne !== "number") {
+      throw new ErrorRepository ()
     }
   } catch (err) {
-    err.translate(code);
+    expect(err.translate(98)).toBe("not a number")
+  }
+  try {
+    let numTestTwo = 51;
+    if (numTestTwo < 100) {
+      throw new ErrorRepository ()
+    }
+  } catch (err) {
+    expect(err.translate(99)).toBe("number less than a hundred")
   }
 });
 

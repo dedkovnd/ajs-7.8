@@ -26,14 +26,14 @@ export class Team {
 }
 
 //////////////////
-export class ErrorRepository extends Error{
+export class ErrorRepository {
   constuctor(code){
     this.code = code;
   }
   translate(code){
     const myErrors = new Map ([
       [97,"not a string"],
-      [98,"not a number from to ten"],
+      [98,"not a number"],
       [99,"number less than a hundred"]
     ])
     if (myErrors.get(code) === undefined) {
@@ -43,15 +43,4 @@ export class ErrorRepository extends Error{
     }
   }
 }
-// Посмотрите, пожалуйста, на пример ниже. new ErrorRepository работает корректно,
-//   хотя по умолчанию класс Error принимает как аргумент message в виде строки.
-//   Почему такая констуркция жизнеспособна и к чему подобный ход мог бы привести впоследствии?
-// let numTestOne = 22;
-// try {
-//   numTestOne;
-//   if (typeof numTestOne !== "string") {
-//     throw new ErrorRepository (this.code = 97)
-//   }
-// } catch (err) {
-//   err.translate(code);
-// }
+
